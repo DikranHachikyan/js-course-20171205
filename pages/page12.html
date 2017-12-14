@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 01</title>
+    <style>
+        ul{
+            list-style: none;
+        }
+        li img {
+            margin-right:5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heading 1</h1>
+    <hr>
+        <ul>
+            <li><a href="http://no.com/movie.mp4">Movie</a></li>
+            <li><a href="http://no.com/manual.pdf">jQuery Manual</a></li>
+            <li><a href="http://no.com/cv.doc">CV</a></li>
+            <li><a href="http://no.com/audio.mp3">Audio</a></li>
+        </ul>
+    <hr>
+    <p>
+        Всеки html документ започва с &lt;html&gt; и савършва с &lt;/html&gt;
+    </p>
+    <noscript>
+        Моля, разрешете JS за да ползвате услугите на сайта.
+    </noscript>
+    <!-- неблокиращо включване -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+       $(document).ready(function(){
+          //$('h1').html('My <em>Resources</em>');
+          $('h1').text('My <em>Resources</em>');
+          $('li a[href$=".mp4"]')
+                .before('<img src="../images/video-x-generic.png" />')
+                .css('text-decoration','none');
+          $('a').css('text-decoration','none'); 
+          $('li a[href$=".pdf"]').before('<img src="../images/package-x-generic.png" />'); 
+          $('li a[href$=".doc"]').before('<img src="../images/x-office-document.png" />'); 
+          $('li a[href$=".mp3"]').before('<img src="../images/audio-x-generic.png" />'); 
+       });
+    </script>
+</body>
+</html>

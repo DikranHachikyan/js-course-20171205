@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 01</title>
+   
+</head>
+<body>
+    <input type="button" value="Click Me!" id="btn">
+    <hr>
+
+    <label><input type="checkbox" id="agree">Съгласен съм...</label>
+    <noscript>
+        Моля, разрешете JS за да ползвате услугите на сайта.
+    </noscript>
+    <!-- неблокиращо включване -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#btn').on('click',function(){
+                window.alert('Click Event');
+            });//on btn click
+
+            $('#agree')
+                .one('change', function(){
+                    window.alert('Change Event');
+                }) //on change
+                .on('click', function(){
+                    window.alert('Click Event');
+                });//on click
+        });//document ready
+    </script>
+</body>
+</html>
