@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 01</title>
+    <style>
+        #gallery li+li {
+            display: none;
+        }
+
+        #gallery {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <ul id="gallery">
+        <li><img src="../pics-large/pic1-320x240.jpg" alt=""></li>
+        <li><img src="../pics-large/pic2-320x240.jpg" alt=""></li>
+        <li><img src="../pics-large/pic3-320x240.jpg" alt=""></li>
+        <li><img src="../pics-large/pic4-320x240.jpg" alt=""></li>
+        <li><img src="../pics-large/pic5-320x240.jpg" alt=""></li>
+    </ul>
+    <div>
+        <input type="button" value="Previous" id="prv">
+        <input type="button" value="Next" id="nxt">
+    </div>
+    <noscript>
+        Моля, разрешете JS за да ползвате услугите на сайта.
+    </noscript>
+    <!-- неблокиращо включване -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+           $('#nxt').click(function(){
+                $('#gallery li:first-child').appendTo($('#gallery'));
+               //$('#gallery').append('hello');
+           });//on click button next
+
+           $('#prv').click(function(){
+                $('#gallery li:last-child').prependTo($('#gallery'));
+           });//on click button previous
+        });//document ready
+    </script>
+</body>
+</html>
