@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 01</title>
+    <style>
+        #gallery li+li {
+            display: none;
+        }
+
+        #gallery {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="#">
+            <img src="../pics-large/pic1-320x240.jpg" alt="" id="bnr">
+        </a>
+    </div>
+    
+    <noscript>
+        Моля, разрешете JS за да ползвате услугите на сайта.
+    </noscript>
+    <!-- неблокиращо включване -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+           var images = ['pic1-320x240.jpg','pic2-320x240.jpg',
+                         'pic3-320x240.jpg','pic4-320x240.jpg',
+                         'pic5-320x240.jpg'];
+
+           var path = '../pics-large/';
+           var currentImageIndex = 0;
+
+           setInterval( function(){
+                currentImageIndex++;
+
+                if( currentImageIndex >= images.length){
+                    currentImageIndex = 0;
+                }
+
+                $('#bnr').attr('src', path + images[currentImageIndex]);
+           }, 2000);
+        });//document ready
+    </script>
+</body>
+</html>

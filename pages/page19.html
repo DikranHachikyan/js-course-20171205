@@ -36,7 +36,7 @@
             var intervalId=0;
             var buttonLabel = '';
            $('#nxt').click(function(){
-                $('#gallery li:first-child').appendTo($('#gallery'));
+                goNext();
            });//on click button next
 
            $('#prv').click(function(){
@@ -51,13 +51,17 @@
                 }
                 else{
                     intervalId = setInterval(function(){
-                        $('#gallery li:first-child').appendTo($('#gallery'));
+                       goNext();
                     }, 2000);
                     buttonLabel = 'Stop'; 
                 }
                 $(this).val(buttonLabel);  
            });
         });//document ready
+
+        function goNext(){
+             $('#gallery li:first-child').appendTo($('#gallery'));
+        }
     </script>
 </body>
 </html>
