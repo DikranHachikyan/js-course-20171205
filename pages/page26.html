@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 01</title>
+    <style>
+        .done {
+            text-decoration: line-through;
+        }
+        table,
+        th,
+        td {
+            border:1px solid;
+        }
+        table{
+            margin-top:20px;
+        }
+
+        #template{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <div>
+        <input type="text" id="todo">
+        <button id="add-todo">Add</button>
+    </div>
+    <table id="todo-list">
+        <tr>
+            <th>N</th>
+            <th>Todo</th>
+            <th>Done</th>
+            <th>&nbsp;</th>
+        </tr>
+    </table>
+
+    <table id="template">
+        <tr class="row">
+            <td class="counter"></td> 
+            <td class="text"></td> 
+            <td><input type="checkbox" class="todo-item" /></td>
+            <td><button class="remove-todo">Remove</button></td> 
+        </tr>
+    </table>
+    <noscript>
+        Моля, разрешете JS за да ползвате услугите на сайта.
+    </noscript>
+    <!-- неблокиращо включване -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+           var count = 0; 
+           $('#add-todo').click(function(){
+                var todoText = $('#todo').val();
+                var tr$ = $('#template .row').clone();
+                tr$.find('.counter').html( ++count);
+                tr$.find('.text').html(todoText);
+                console.log("click",tr$.find('.text').html());
+                $('#todo-list').append(tr$);
+           });
+
+           $('#todo-list').on('click','.todo-item',function(){
+               todoDone(this);
+           });
+
+
+           $('#todo-list').on('click','.remove-todo',function(){
+               removeItem(this);
+           });
+
+           
+        });//document ready
+
+        function todoDone(item){
+             $(item).parent().prev().toggleClass('done');
+        }
+
+        function removeItem(item){
+            $(item).parentsUntil('#todo-list','.row').fadeOut('slow', function(){
+                    $(this).remove();
+                });  
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 01</title>
+    <style>
+        .done {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <div>
+        <input type="text" id="todo">
+        <button id="add-todo">Add</button>
+        <!--
+        <button id="btn">Add Listener</button>
+        -->
+    </div>
+    <ol id="todo-list"></ol>
+    <noscript>
+        Моля, разрешете JS за да ползвате услугите на сайта.
+    </noscript>
+    <!-- неблокиращо включване -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+           $('#add-todo').click(function(){
+                var todoText = $('#todo').val();
+                var li$ = $('<li>' + 
+                                todoText + 
+                                '<input type="checkbox" class="todo-item" />'+
+                                '<button class="remove-todo">Remove</button>' +
+                            '</li>');
+                $('#todo-list').append(li$);
+           });
+
+           $('#todo-list').on('click','.todo-item',function(){
+                $(this).parent().toggleClass('done');
+           });
+
+
+           $('#todo-list').on('click','.remove-todo',function(){
+                $(this).parent().fadeOut('slow', function(){
+                    $(this).remove();
+                });  
+           });
+
+           /*$('#btn').click(function(){
+                $('.todo-item').click(function(){
+                    console.log('checkbox clicked');
+                });
+           });*/
+
+        });//document ready
+    </script>
+</body>
+</html>
