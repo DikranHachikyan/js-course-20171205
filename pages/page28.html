@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page 01</title>
+    <style>
+        .done {
+            text-decoration: line-through;
+        }
+        table,
+        th,
+        td {
+            border:1px solid;
+        }
+        table{
+            margin-top:20px;
+        }
+        
+        #template {
+            display: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <div>
+        <input type="text" id="todo">
+        <button id="add-todo">Add</button>
+    </div>
+    <table id="todo-list">
+        <tr>
+            <th>N</th>
+            <th>Todo</th>
+            <th>Done</th>
+            <th>&nbsp;</th>
+        </tr>
+    </table>
+
+    <table id="template">
+        <tr class="row">
+            <td class="counter"></td> 
+            <td class="text"></td> 
+            <td><input type="checkbox" class="todo-item" /></td>
+            <td><button class="remove-todo">Remove</button></td> 
+        </tr>
+    </table>
+    <noscript>
+        Моля, разрешете JS за да ползвате услугите на сайта.
+    </noscript>
+    <!-- неблокиращо включване -->
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        var todos = [
+         {title:'Gratitude list – 5 things you are grateful for', status:'open'},
+         {title:'Start the day with your WHY.', status:'done'},
+         {title:'Fresh green juice', status:'open'},
+         {title:'Write 500 words', status:'done'},
+         {title:'Review the day and check in with the next few days', status:'open'},
+         {title:'Clear desk ready for a fresh day tomorrow!', status:'open'}
+        ];
+
+
+        $(document).ready(function(){
+ 
+           var count = loadTodos(todos, $('#todo-list'), $('#template .row'));
+
+           $('#add-todo').click(function(){
+                var todoText = $('#todo').val();
+                var tr$ = $('#template .row').clone();
+                tr$.find('.counter').html( ++count);
+                tr$.find('.text').html(todoText);
+                $('#todo-list').append(tr$);
+                todos.push({title:todoText, status:'open'});
+                console.log(todos);
+           });
+
+           $('#todo-list').on('click','.todo-item',function(){
+               todoDone(this);
+           });
+
+
+           $('#todo-list').on('click','.remove-todo',function(){
+               removeItem(this);
+           });
+
+           
+        });//document ready
+
+        function todoDone(item){
+             var td$ = $(item).parent().prev();
+             var title = td$.text();
+             td$.toggleClass('done');
+             var idx = getIndex(title);
+
+             if( idx !== -1){
+                if(td$.hasClass('done')){
+                    todos[idx].status = 'done';
+                }
+                else{
+                    todos[idx].status = 'open';
+                }
+             }
+             
+        }
+
+        function removeItem(item){
+            var tr$ = $(item).parentsUntil('#todo-list','.row');
+            var  title = tr$.find('.text').text();
+            var idx = getIndex(title);
+            if( idx !== -1){
+                todos.splice(idx,1);
+                //delete todos[idx];
+            }
+            tr$.fadeOut('slow', function(){
+                $(this).remove();
+                generateNumbers();
+            });
+            
+            console.log(todos);
+        }
+
+        function loadTodos( data, todoElement, template ){
+            var counter = 0;
+            $.each( data, function(index, todo ){
+                //console.log(index + ' ' , todo);
+                var tr$ = template.clone();
+                counter++;
+                tr$.find('.counter').text(counter);
+                tr$.find('.text').html(todo.title);
+                if( todo.status !== undefined && todo.status === 'done'){
+                       tr$.find('.todo-item').attr('checked','checked');
+                       tr$.find('.text').addClass('done'); 
+                }
+                
+                todoElement.append(tr$);
+            });
+            return counter;
+        }
+
+        function getIndex(title){
+            var idx = todos.findIndex(function(element){
+                return title === element.title;
+             });
+            return idx;
+        }
+
+        function generateNumbers(){
+            $('#todo-list .counter').each(function(index){
+                $(this).text(index + 1);
+            })
+        }
+    </script>
+</body>
+</html>

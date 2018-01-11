@@ -16,10 +16,6 @@
             margin-top:20px;
         }
         
-        #template {
-            display: none;
-        }
-        
     </style>
 </head>
 <body>
@@ -37,14 +33,14 @@
         </tr>
     </table>
 
-    <table id="template">
+    <template id="template">
         <tr class="row">
             <td class="counter"></td> 
             <td class="text"></td> 
             <td><input type="checkbox" class="todo-item" /></td>
             <td><button class="remove-todo">Remove</button></td> 
         </tr>
-    </table>
+    </template>
     <noscript>
         Моля, разрешете JS за да ползвате услугите на сайта.
     </noscript>
@@ -55,10 +51,12 @@
            var count = 0; 
            $('#add-todo').click(function(){
                 var todoText = $('#todo').val();
-                var tr$ = $('#template .row').clone();
+                //--- достъп до шаблона ------
+                var t = $('#template').html();
+                var tr$ = $(t).clone();
+                //----------------------------
                 tr$.find('.counter').html( ++count);
                 tr$.find('.text').html(todoText);
-                console.log("click",tr$.find('.text').html());
                 $('#todo-list').append(tr$);
            });
 
